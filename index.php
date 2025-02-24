@@ -6,7 +6,8 @@ $url = parse_url($_SERVER["REQUEST_URI"])["path"];
 
 
 $routes = [
-    "/" => "controllers/index.php"
+    "/" => "controllers/index.php",
+     "/login" => "controllers/login.php"
 ];
 
 
