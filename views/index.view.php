@@ -9,6 +9,7 @@
 
 <body>
     <h1>Main page</h1>
-</body>
 
+    <script src="https://cdn.tailwindcss.com"></script>
+</body>
 </html>
