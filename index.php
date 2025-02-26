@@ -1,19 +1,19 @@
 <?php
 
+$uri = parse_url($_SERVER["REQUEST_URI"])["path"];
 
+$routes = require("routes.php");
 
-$url = parse_url($_SERVER["REQUEST_URI"])["path"];
-
-
-$routes = [
-    "/" => "controllers/index.php",
-     "/login" => "controllers/login.php"
-];
-
-
-if (array_key_exists($url, $routes)) {
-    require $routes[$url];
-} else {
-    require "controller/index.php";
+foreach ($routes as $controller) {
+    require_once "controllers/" . explode("@", $controller)[0] . ".php";
 }
 
+if (array_key_exists($uri, $routes)) {
+    list($controller, $method) = explode('@', $routes[$uri]);
+    $instance = new $controller();
+    $instance->$method();
+} else {
+    http_response_code(404);
+    echo "Lapa nav atrasta!";
+    exit();
+}

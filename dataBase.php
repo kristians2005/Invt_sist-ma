@@ -1,35 +1,34 @@
 <?php
 
-require('config.php');
-
-
-class DataBase
+class Database
 {
+    private $config = [
+        "host" => "localhost",
+        "port" => 3306,
+        "dbname" => "blogpp",
+        "charset" => "utf8mb4",
+        "user" => "root",
+        "password" => ""
+    ];
 
-    private $config;
+    private $pdo;
 
-    public $dbConn;
-    public $pdo;
-
-    function __construct()
+    // Konstruktors - pieslēdzas datu bāzei
+    public function __construct()
     {
-        $this->pdo = "mysql:" . http_build_query($this->config, "", ";");
+        $dsn = "mysql:" . http_build_query($this->config, "", ";");
+        $this->pdo = new PDO($dsn);
+        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
 
-    public function connection()
+    // Metode, kas izpilda vaicājumus
+    public function query($sql, $params = [])
     {
-        $this->dbConn = new PDO($this->pdo);
-        $this->dbConn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        return $this->dbConn;
+
+        // 1. Sagatavot vaicājumu
+        $statement = $this->pdo->prepare($sql);
+        // 2. Izpildīt vaicājumu
+        $statement->execute($params);
+        return $statement;
     }
-
-
-
-    function __destruct()
-    {
-        $this->dbConn = null;
-    }
-
-
-
 }
