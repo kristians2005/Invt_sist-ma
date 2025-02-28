@@ -36,7 +36,8 @@ var_dump($_POST);
             header('Location: /');
             return;
         }
-
+        session_start();
+        $_SESSION['user'] = $email;
         header('Location: /');
     }
 
