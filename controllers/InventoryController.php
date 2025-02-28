@@ -1,6 +1,6 @@
 <?php
 
-require "models/Product.php";
+
 
 class InventoryController
 {
