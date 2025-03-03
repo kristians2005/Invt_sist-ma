@@ -28,7 +28,7 @@ class AuthController
 
     public function authenticate()
     {
-var_dump($_POST);
+
         $email = $_POST['email'];
         $password = $_POST['password'];
 
@@ -43,23 +43,24 @@ var_dump($_POST);
 
     public function registerUser()
     {
-var_dump($_POST);
-        $name = $_POST['Várds'];
+        $name = $_POST['name'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $password_confirmation = $_POST['password_confirmation'];
 
         if ($password !== $password_confirmation) {
-            echo "Password does not match";
+            $error = "Password does not match";
+            require "views/auth/Register.view.php";
             return;
         }
 
         if (Auth::emailExists($email)) {
-            echo "This email is already registered. Please use a different email.";
+            $error = "This email is already registered. Please use a different email.";
+            require "views/auth/Register.view.php";
             return;
         }
 
-    Auth::register($name, $email, $password);
+        Auth::register($name, $email, $password);
         header('Location: /login');
     }
 
