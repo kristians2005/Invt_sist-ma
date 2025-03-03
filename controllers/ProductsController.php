@@ -2,7 +2,7 @@
 
 require "models/Product.php";
 
-class ProductController
+class ProductsController
 {
     public function index()
     {
