@@ -1,5 +1,5 @@
 <?php
-require "Database.php";
+require_once 'dataBase.php';
 
 abstract class Model
 {

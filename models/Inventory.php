@@ -1,6 +1,6 @@
 <?php
 
-require "models/Model.php";
+require_once "models/Model.php";
 
 class Inventory extends Model
 {
@@ -8,8 +8,6 @@ class Inventory extends Model
     {
         return "inventory";
     }
-<<<<<<< HEAD
-=======
     public static function all()
     {
         self::init();
@@ -26,5 +24,4 @@ class Inventory extends Model
         $record = self::$db->query($sql, [":id" => $id])->fetch();
         return $record ?: null;
     }
->>>>>>> 9d42798 (inventory_start)
 }
