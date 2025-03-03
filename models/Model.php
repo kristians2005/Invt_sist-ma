@@ -19,20 +19,20 @@ abstract class Model
         $sql = "SELECT * FROM " . static::getTableName();
 
         $records = self::$db->query($sql)->fetchAll();
-        return $records;
+        return $records ?: [];
     }
 
-    public static function register ($name, $email, $password)
+    public static function register($name, $email, $password)
     {
         self::init();
-       
+
         $sql = "INSERT INTO " . static::getTableName() . " (name, email, password) VALUES (:name, :email, :password)";
-    
+
         $records = self::$db->query($sql, [":name" => $name, ":email" => $email, ":password" => $password]);
         return $records;
     }
 
-    public static function login ($email, $password)
+    public static function login($email, $password)
     {
         self::init();
         $sql = "SELECT * FROM " . static::getTableName() . " WHERE email = :email";
@@ -46,5 +46,34 @@ abstract class Model
         return false;
     }
 
+
+    public static function create(array $data): bool
+    {
+        self::init();
+        $columns = implode(", ", array_keys($data));
+        $placeholders = ":" . implode(", :", array_keys($data));
+
+        $sql = "INSERT INTO " . static::getTableName() . " ($columns) VALUES ($placeholders)";
+
+        return self::$db->query($sql, $data) ? true : false;
+    }
+
+    public static function update(int $id, array $data): bool
+    {
+        self::init();
+        $updates = implode(", ", array_map(fn($key) => "$key = :$key", array_keys($data)));
+
+        $sql = "UPDATE " . static::getTableName() . " SET $updates WHERE id = :id";
+        $data['id'] = $id;
+
+        return self::$db->query($sql, $data) ? true : false;
+    }
+
+    public static function delete(int $id): bool
+    {
+        self::init();
+        $sql = "DELETE FROM " . static::getTableName() . " WHERE id = :id";
+        return self::$db->query($sql, [":id" => $id]) ? true : false;
+    }
 
 }
