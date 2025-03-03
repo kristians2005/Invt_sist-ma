@@ -33,8 +33,11 @@ class InventoryController
                 "location" => $_POST["location"]
             ];
 
-            Inventory::create($data);
-            header("Location: /inventory");
+            if (Inventory::create($data)) {
+                header("Location: /inventory");
+            } else {
+                die("Error saving inventory.");
+            }
         }
     }
 
@@ -55,8 +58,11 @@ class InventoryController
                 "location" => $_POST["location"]
             ];
 
-            Inventory::update($id, $data);
-            header("Location: /inventory");
+            if (Inventory::update($id, $data)) {
+                header("Location: /inventory");
+            } else {
+                die("Error updating inventory.");
+            }
         }
     }
 

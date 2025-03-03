@@ -1,13 +1,12 @@
-<h1>Add Inventory Item</h1>
 <form action="/inventory/store" method="POST">
     <label>Product ID:</label>
-    <input type="number" name="product_id" required>
+    <input type="number" name="product_id" required><br>
 
     <label>Quantity:</label>
-    <input type="number" name="quantity" required>
+    <input type="number" name="quantity" required><br>
 
     <label>Location:</label>
-    <input type="text" name="location">
+    <input type="text" name="location" required><br>
 
-    <button type="submit">Save</button>
+    <button type="submit">Add to Inventory</button>
 </form>
