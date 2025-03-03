@@ -1,6 +1,7 @@
 <?php
 
 require "models/Auth.php";
+require "validator.php";
 
 class AuthController
 {
@@ -9,16 +10,16 @@ class AuthController
 
     public function login()
     {
-       
+
         require "views/auth/Login.view.php";
     }
 
     public function register()
     {
-    
-      
+
+
         require "views/auth/Register.view.php";
-    
+
     }
 
     public function logout()
@@ -33,13 +34,30 @@ class AuthController
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-       if (Auth::login($email, $password)) {
+        $error = [];
+
+        if (!Validator::email($email)) {
+            $error["email"] = "Please enter a valid email address.";
+        }
+
+        if (Validator::required($password)) {
+            $error["password"] = "Password is required.";
+        }
+
+        if (!empty($error)) {
+            require "views/auth/Login.view.php";
+            return;
+        }
+
+        if (Auth::login($email, $password)) {
+            session_start();
+            $_SESSION['user'] = $email;
             header('Location: /');
             return;
         }
-        session_start();
-        $_SESSION['user'] = $email;
-        header('Location: /');
+
+        $error["password"] = "Invalid email or password.";
+        require "views/auth/Login.view.php";
     }
 
     public function registerUser()
@@ -49,20 +67,47 @@ class AuthController
         $password = $_POST['password'];
         $password_confirmation = $_POST['password_confirmation'];
 
-        if ($password !== $password_confirmation) {
-            $error = "Password does not match";
-            require "views/auth/Register.view.php";
-            return;
+        $error = [];
+
+        if (Validator::required($name)) {
+            $error["name"] = "Name is required.";
+        }
+
+        if (!Validator::strLengt($name, 3, 50)) {
+            $error["name"] = "Name must be between 3 and 50 characters long.";
+        }
+
+        if (!Validator::passwordMatch($password, $password_confirmation)) {
+            $error["password"] = "Passwords do not match.";
+        }
+
+        if (!Validator::passwordContains($password)) {
+            $error["password"] = "Password must contain at least one number and one uppercase letter and one simbol.";
+        }
+
+        if (!Validator::passwordLength($password)) {
+            $error["password"] = "Password must be at least 8 characters long.";
+        }
+
+        if (!Validator::email($email)) {
+            $error["email"] = "Email is not valid.";
         }
 
         if (Auth::emailExists($email)) {
-            $error = "This email is already registered. Please use a different email.";
-            require "views/auth/Register.view.php";
-            return;
+            $error["email"] = "This email is already registered. Please use a different email.";
         }
 
-        Auth::register($name, $email, $password);
-        header('Location: /login');
+
+
+        var_dump($error);
+
+        if (empty($error)) {
+            Auth::register($name, $email, $password);
+            header('Location: /login');
+        } else {
+            require "views/auth/Register.view.php";
+        }
+
     }
 
 

@@ -26,11 +26,11 @@ abstract class Model
     {
         self::init();
 
-       
+
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO " . static::getTableName() . " (name, email, password) VALUES (:name, :email, :password)";
-    
+
         $records = self::$db->query($sql, [":name" => $name, ":email" => $email, ":password" => $hashedPassword]);
         return $records;
 

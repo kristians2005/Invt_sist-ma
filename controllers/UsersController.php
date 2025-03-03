@@ -1,6 +1,6 @@
 <?php
 
-require_once "Users.php";
+require_once "models/Users.php";
 
 class UsersController
 {
@@ -15,12 +15,19 @@ class UsersController
     private function checkRole($requiredRole)
     {
         $userId = $_SESSION['user_id'] ?? null;
-        if (!$userId) return false;
+        if (!$userId)
+            return false;
         return $this->usersModel->getRole($userId) === $requiredRole;
     }
 
-    private function isAdmin() { return $this->checkRole('Admin'); }
-    private function isWorker() { return $this->checkRole('Worker'); }
+    private function isAdmin()
+    {
+        return $this->checkRole('Admin');
+    }
+    private function isWorker()
+    {
+        return $this->checkRole('Worker');
+    }
 
     public function index()
     {
