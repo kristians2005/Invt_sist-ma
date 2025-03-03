@@ -13,7 +13,9 @@
 
         <div class="form-group">
             <label for="name">Name</label>
+
             <input type="text" id="name" name="name" required pattern="[a-zA-Z]{2,50}" title="Ludzū ievadiet vārdu kurā nav skaitļi , un ir no 2-50 burti">
+
         </div>
 
         <div class="form-group">
@@ -23,17 +25,18 @@
 
         <div class="form-group">
             <label for="password">Password</label>
+
             <input type="password" id="password" name="password" required minlength="8" 
         pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" 
         title="Parolei jābūt vismaz 8 simbolus garai, jāiekļauj viens lielais burts, viens mazais burts, viens cipars un viens īpašais simbols.">
         <br>
+
         </div>
 
         <div class="form-group">
             <label for="password_confirmation">Password Confirmation</label>
             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required title="Lūdzu ievadiet paroli vēlreiz, lai apstiprinātu.">
         </div>
-
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
 

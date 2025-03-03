@@ -6,6 +6,7 @@ class AuthController
 {
 
 
+
     public function login()
     {
        
@@ -63,7 +64,6 @@ class AuthController
         Auth::register($name, $email, $password);
         header('Location: /login');
     }
-
 
 
 
