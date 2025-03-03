@@ -13,6 +13,15 @@ return [
     '/inventory/update' => 'InventoryController@update',
     '/inventory/destroy' => 'InventoryController@destroy',
 
+    // Products
+    '/products' => 'ProductsController@index',
+    '/products/show' => 'ProductsController@show',
+    '/products/create' => 'ProductsController@create',
+    '/products/store' => 'ProductsController@store',
+    '/products/edit' => 'ProductsController@edit',
+    '/products/update' => 'ProductsController@update',
+    '/products/destroy' => 'ProductsController@destroy',
+
     //auth
     '/login' => 'AuthController@login',
     '/register' => 'AuthController@register',

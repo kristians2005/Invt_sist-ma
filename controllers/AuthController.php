@@ -6,29 +6,19 @@ class AuthController
 {
 
 
+
     public function login()
     {
-<<<<<<< HEAD
        
-=======
-
->>>>>>> 9d42798 (inventory_start)
         require "views/auth/Login.view.php";
     }
 
     public function register()
     {
-<<<<<<< HEAD
     
       
         require "views/auth/Register.view.php";
     
-=======
-
-
-        require "views/auth/Register.view.php";
-
->>>>>>> 9d42798 (inventory_start)
     }
 
     public function logout()
@@ -39,19 +29,11 @@ class AuthController
 
     public function authenticate()
     {
-<<<<<<< HEAD
-var_dump($_POST);
+
         $email = $_POST['email'];
         $password = $_POST['password'];
 
        if (Auth::login($email, $password)) {
-=======
-        var_dump($_POST);
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        if (Auth::login($email, $password)) {
->>>>>>> 9d42798 (inventory_start)
             header('Location: /');
             return;
         }
@@ -62,30 +44,26 @@ var_dump($_POST);
 
     public function registerUser()
     {
-<<<<<<< HEAD
-var_dump($_POST);
-=======
-        var_dump($_POST);
->>>>>>> 9d42798 (inventory_start)
         $name = $_POST['name'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $password_confirmation = $_POST['password_confirmation'];
 
         if ($password !== $password_confirmation) {
-            echo "Password does not match";
+            $error = "Password does not match";
+            require "views/auth/Register.view.php";
             return;
         }
 
-<<<<<<< HEAD
-Auth::register($name, $email, $password);
-=======
-        Auth::register($name, $email, $password);
->>>>>>> 9d42798 (inventory_start)
+        if (Auth::emailExists($email)) {
+            $error = "This email is already registered. Please use a different email.";
+            require "views/auth/Register.view.php";
+            return;
+        }
 
+        Auth::register($name, $email, $password);
         header('Location: /login');
     }
-
 
 
 

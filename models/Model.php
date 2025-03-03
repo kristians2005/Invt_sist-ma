@@ -1,5 +1,5 @@
 <?php
-require "Database.php";
+require_once 'dataBase.php';
 
 abstract class Model
 {
@@ -26,10 +26,14 @@ abstract class Model
     {
         self::init();
 
-        $sql = "INSERT INTO " . static::getTableName() . " (name, email, password) VALUES (:name, :email, :password)";
+       
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $records = self::$db->query($sql, [":name" => $name, ":email" => $email, ":password" => $password]);
+        $sql = "INSERT INTO " . static::getTableName() . " (name, email, password) VALUES (:name, :email, :password)";
+    
+        $records = self::$db->query($sql, [":name" => $name, ":email" => $email, ":password" => $hashedPassword]);
         return $records;
+
     }
 
     public static function login($email, $password)
@@ -46,6 +50,15 @@ abstract class Model
         return false;
     }
 
+
+
+    public static function emailExists($email)
+    {
+        self::init();
+        $sql = "SELECT COUNT(*) FROM " . static::getTableName() . " WHERE email = :email";
+        $count = self::$db->query($sql, [":email" => $email])->fetchColumn();
+        return $count > 0;
+    }
 
     public static function create(array $data): bool
     {

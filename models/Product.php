@@ -1,27 +1,24 @@
 <?php
-
 require_once "models/Model.php";
 
-class Inventory extends Model
+class Product extends Model
 {
     protected static function getTableName(): string
     {
-        return "inventory";
+        return "products";
     }
+
     public static function all()
     {
         self::init();
         $sql = "SELECT * FROM " . self::getTableName();
-
-        $records = self::$db->query($sql)->fetchAll();
-        return $records ?: [];
+        return self::$db->query($sql)->fetchAll() ?: [];
     }
+
     public static function find(int $id): ?array
     {
         self::init();
         $sql = "SELECT * FROM " . self::getTableName() . " WHERE id = :id LIMIT 1";
-
-        $record = self::$db->query($sql, [":id" => $id])->fetch();
-        return $record ?: null;
+        return self::$db->query($sql, [":id" => $id])->fetch() ?: null;
     }
 }

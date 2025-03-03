@@ -1,6 +1,8 @@
 <?php
 
+
 require_once "Database.php"; 
+require_once "models/Model.php";
 
 class Users
 {
