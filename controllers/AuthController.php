@@ -44,7 +44,7 @@ var_dump($_POST);
     public function registerUser()
     {
 var_dump($_POST);
-        $name = $_POST['name'];
+        $name = $_POST['Várds'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $password_confirmation = $_POST['password_confirmation'];
@@ -54,8 +54,12 @@ var_dump($_POST);
             return;
         }
 
-Auth::register($name, $email, $password);
+        if (Auth::emailExists($email)) {
+            echo "This email is already registered. Please use a different email.";
+            return;
+        }
 
+    Auth::register($name, $email, $password);
         header('Location: /login');
     }
 

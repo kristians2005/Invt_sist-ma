@@ -26,10 +26,13 @@ abstract class Model
     {
         self::init();
        
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
         $sql = "INSERT INTO " . static::getTableName() . " (name, email, password) VALUES (:name, :email, :password)";
     
         $records = self::$db->query($sql, [":name" => $name, ":email" => $email, ":password" => $password]);
         return $records;
+
     }
 
     public static function login ($email, $password)
@@ -44,6 +47,15 @@ abstract class Model
             return true;
         }
         return false;
+    }
+
+
+    public static function emailExists($email)
+    {
+        self::init();
+        $sql = "SELECT COUNT(*) FROM " . static::getTableName() . " WHERE email = :email";
+        $count = self::$db->query($sql, [":email" => $email])->fetchColumn();
+        return $count > 0;
     }
 
 
