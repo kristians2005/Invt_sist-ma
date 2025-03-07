@@ -12,15 +12,22 @@ class InventoryController
 
     public function show($id)
     {
-        $item = Inventory::find($id);
-        if (!$item) {
+        $inventory = Inventory::find($id);
+
+        if (!$inventory) {
             die("Inventory item not found.");
         }
+
+        $product = Product::find($inventory['product_id']);
+        $inventory['product_name'] = $product ? $product['name'] : 'Unknown Product';
+
         require "views/inventory/show.view.php";
     }
 
+
     public function create()
     {
+        $products = Product::all();
         require "views/inventory/create.view.php";
     }
 
@@ -41,8 +48,11 @@ class InventoryController
         }
     }
 
+
     public function edit($id)
     {
+        $products = Product::all();
+
         $item = Inventory::find($id);
         if (!$item) {
             die("Inventory item not found.");

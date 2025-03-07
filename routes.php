@@ -6,12 +6,12 @@ return [
 
     //inventory
     '/inventory' => 'InventoryController@index',
-    '/inventory/show' => 'InventoryController@show',
+    '/inventory/show/(:num)' => 'InventoryController@show',
     '/inventory/create' => 'InventoryController@create',
     '/inventory/store' => 'InventoryController@store',
-    '/inventory/edit' => 'InventoryController@edit',
-    '/inventory/update' => 'InventoryController@update',
-    '/inventory/destroy' => 'InventoryController@destroy',
+    '/inventory/edit/(:num)' => 'InventoryController@edit',
+    '/inventory/update/(:num)' => 'InventoryController@update',
+    '/inventory/destroy/(:num)' => 'InventoryController@destroy',
 
     // Products
     '/products' => 'ProductsController@index',
