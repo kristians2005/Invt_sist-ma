@@ -2,6 +2,7 @@
 
 <a href="/products/create">Add New Product</a>
 <a href="/inventory">Inventory</a>
+<a href="/">Dashboard</a>
 
 <table border="1">
     <thead>

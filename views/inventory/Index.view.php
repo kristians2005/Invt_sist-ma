@@ -1,6 +1,7 @@
 <h1>Inventory List</h1>
 <a href="/inventory/create">Add New Item</a>
 <a href="/products">Products</a>
+<a href="/">Dashboard</a>
 
 <table border="1">
     <tr>
