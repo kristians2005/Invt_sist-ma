@@ -1,6 +1,6 @@
 <h1>Edit Product</h1>
 
-<form action="/products/update?id=<?= $product['id'] ?>" method="POST">
+<form action="/products/update/<?= $product['id'] ?>" method="POST">
     <label>Name:</label>
     <input type="text" name="name" value="<?= htmlspecialchars($product['name']) ?>" required><br>
 

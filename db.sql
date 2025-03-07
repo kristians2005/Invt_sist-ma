@@ -1,10 +1,16 @@
+-- Create the database
+CREATE DATABASE inv_sistema;
+
+-- Switch to the database
+USE inv_sistema;
+
 -- users:
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username TEXT NOT NULL,
-    epasts VARCHAR(255) NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     roles ENUM('Worker', 'Admin') NOT NULL,
-    parole TEXT NOT NULL
+    password TEXT NOT NULL
 );
 
 
@@ -28,3 +34,5 @@ CREATE TABLE inventory (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
+
+

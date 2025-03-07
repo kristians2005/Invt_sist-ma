@@ -6,21 +6,22 @@ return [
 
     //inventory
     '/inventory' => 'InventoryController@index',
-    '/inventory/show' => 'InventoryController@show',
+    '/inventory/show/(:num)' => 'InventoryController@show',
     '/inventory/create' => 'InventoryController@create',
     '/inventory/store' => 'InventoryController@store',
-    '/inventory/edit' => 'InventoryController@edit',
-    '/inventory/update' => 'InventoryController@update',
-    '/inventory/destroy' => 'InventoryController@destroy',
+    '/inventory/edit/(:num)' => 'InventoryController@edit',
+    '/inventory/update/(:num)' => 'InventoryController@update',
+    '/inventory/destroy/(:num)' => 'InventoryController@destroy',
 
     // Products
     '/products' => 'ProductsController@index',
-    '/products/show' => 'ProductsController@show',
     '/products/create' => 'ProductsController@create',
     '/products/store' => 'ProductsController@store',
-    '/products/edit' => 'ProductsController@edit',
-    '/products/update' => 'ProductsController@update',
-    '/products/destroy' => 'ProductsController@destroy',
+    '/products/edit/(:num)' => 'ProductsController@edit',
+    '/products/update/(:num)' => 'ProductsController@update',
+    '/products/show/(:num)' => 'ProductsController@show',
+    '/products/destroy/(:num)' => 'ProductsController@destroy',
+
 
     //auth
     '/login' => 'AuthController@login',

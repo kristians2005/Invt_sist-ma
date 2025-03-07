@@ -52,6 +52,7 @@ class ProductsController
         require "views/products/edit.view.php";
     }
 
+
     public function update($id)
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
