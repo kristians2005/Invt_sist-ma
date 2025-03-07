@@ -72,4 +72,21 @@ class Users
         }
         return false;
     }
+
+
+    public static function update(int $id, array $data): bool
+    {
+        $table = static::getTableName();
+        $updates = implode(", ", array_map(fn($key) => "$key = :$key", array_keys($data)));
+
+        $sql = "UPDATE $table SET $updates WHERE id = :id";
+        $data['id'] = $id;
+
+        $stmt = self::getDB()->prepare($sql);
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+        return $stmt->execute();
+    }
+
 }

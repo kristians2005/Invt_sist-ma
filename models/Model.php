@@ -50,7 +50,14 @@ abstract class Model
         return false;
     }
 
+    public static function find(int $id): ?array
+    {
+        self::init();
+        $sql = "SELECT * FROM " . static::getTableName() . " WHERE id = :id LIMIT 1";
 
+        $record = self::$db->query($sql, [":id" => $id])->fetch();
+        return $record ?: null;
+    }
 
     public static function emailExists($email)
     {
