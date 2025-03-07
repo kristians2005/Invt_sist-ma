@@ -23,10 +23,10 @@
                 <td><?= htmlspecialchars($product['category']) ?></td>
                 <td>
                     <a href="/products/show/<?= $product['id'] ?>">View</a> |
-                    <a href="/products/edit?id=<?= $product['id'] ?>">Edit</a> |
-                    <a href="/products/destroy?id=<?= $product['id'] ?>"
-                        onclick="return confirm('Are you sure?')">Delete</a>
+                    <a href="/products/edit/<?= $product['id'] ?>">Edit</a> |
+                    <a href="/products/destroy/<?= $product['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
                 </td>
+
             </tr>
         <?php endforeach; ?>
     </tbody>

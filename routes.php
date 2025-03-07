@@ -15,12 +15,13 @@ return [
 
     // Products
     '/products' => 'ProductsController@index',
-    '/products/show' => 'ProductsController@show',
     '/products/create' => 'ProductsController@create',
     '/products/store' => 'ProductsController@store',
-    '/products/edit' => 'ProductsController@edit',
-    '/products/update' => 'ProductsController@update',
-    '/products/destroy' => 'ProductsController@destroy',
+    '/products/edit/(:num)' => 'ProductsController@edit',
+    '/products/update/(:num)' => 'ProductsController@update',
+    '/products/show/(:num)' => 'ProductsController@show',
+    '/products/destroy/(:num)' => 'ProductsController@destroy',
+
 
     //auth
     '/login' => 'AuthController@login',
