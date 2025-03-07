@@ -26,11 +26,11 @@ abstract class Model
     {
         self::init();
 
-       
+
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO " . static::getTableName() . " (name, email, password) VALUES (:name, :email, :password)";
-    
+
         $records = self::$db->query($sql, [":name" => $name, ":email" => $email, ":password" => $hashedPassword]);
         return $records;
 
@@ -50,7 +50,14 @@ abstract class Model
         return false;
     }
 
+    public static function find(int $id): ?array
+    {
+        self::init();
+        $sql = "SELECT * FROM " . static::getTableName() . " WHERE id = :id LIMIT 1";
 
+        $record = self::$db->query($sql, [":id" => $id])->fetch();
+        return $record ?: null;
+    }
 
     public static function emailExists($email)
     {

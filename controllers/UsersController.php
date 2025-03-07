@@ -1,50 +1,52 @@
 <?php
 
-
+require_once "models/Users.php";
 
 class UsersController
 {
-
-
     public function index()
     {
-
-        require "views/auth/index.view.php";
+        $users = Users::all();
+        require "views/users/index.view.php";
     }
 
     public function show()
     {
-
         require "views/auth/show.view.php";
     }
 
     public function create()
     {
-
         require "views/auth/create.view.php";
     }
 
     public function store()
     {
-
-
+        // Store logic
     }
 
-    public function update()
+    public function edit()
     {
+        $id = $_GET['id'];
+        var_dump($id);
+        $user = Users::find($id);
+        require "views/users/Edit.view.php";
+    }
 
+    public function update($id)
+    {
+        $data = [
+            'name' => $_POST['name'],
+            'email' => $_POST['email'],
+            'roles' => $_POST['roles']
+        ];
 
+        Users::update($id, $data);
+        header("Location: /users");
     }
 
     public function destroy()
     {
-
-
+        // Destroy logic
     }
-
-
-
-
-
-
 }
