@@ -1,5 +1,7 @@
 <h1>Inventory List</h1>
 <a href="/inventory/create">Add New Item</a>
+<a href="/products">Products</a>
+<a href="/">Dashboard</a>
 
 <table border="1">
     <tr>
@@ -18,7 +20,8 @@
             <td>
                 <a href="/inventory/show/<?= $item['id'] ?>">View</a> |
                 <a href="/inventory/edit/<?= $item['id'] ?>">Edit</a> |
-                <form action="/inventory/destroy/<?= $item['id'] ?>" method="POST" style="display:inline;">
+                <form action="/inventory/destroy/<?= $item['id'] ?>" onsubmit="return confirm('Are you sure?')"
+                    method="POST" style="display:inline;">
                     <button type="submit">Delete</button>
                 </form>
             </td>

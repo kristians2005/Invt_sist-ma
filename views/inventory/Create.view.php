@@ -1,6 +1,14 @@
 <form action="/inventory/store" method="POST">
-    <label>Product ID:</label>
-    <input type="number" name="product_id" required><br>
+    <label>Product:</label>
+    <select name="product_id" required>
+        <option value="">Select a product</option>
+        <?php foreach ($products as $product): ?>
+            <option value="<?= $product['id'] ?>">
+                <?= htmlspecialchars($product['name']) ?> (ID: <?= $product['id'] ?>)
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <br>
 
     <label>Quantity:</label>
     <input type="number" name="quantity" required><br>

@@ -1,5 +1,7 @@
 <?php
 
+
+require_once "Database.php"; 
 require_once "models/Model.php";
 
 class Users extends Model
@@ -32,5 +34,6 @@ class Users extends Model
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
 
 }

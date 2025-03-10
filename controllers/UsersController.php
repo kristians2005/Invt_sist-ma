@@ -4,6 +4,7 @@ require_once "models/Users.php";
 
 class UsersController
 {
+
     public function index()
     {
         $users = Users::all();
@@ -12,21 +13,23 @@ class UsersController
 
     public function show()
     {
-        require "views/auth/show.view.php";
+      
     }
 
     public function create()
     {
+
         require "views/auth/create.view.php";
     }
 
     public function store()
     {
-        // Store logic
+      
     }
 
     public function edit()
     {
+
         $id = $_GET['id'];
         $user = Users::find($id);
         require "views/users/Edit.view.php";
@@ -43,6 +46,7 @@ class UsersController
 
         Users::updateUser($id, $data);
         header("Location: /users");
+
     }
 
     public function destroy()
