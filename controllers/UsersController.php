@@ -31,26 +31,28 @@ class UsersController
     {
 
         $id = $_GET['id'];
-        var_dump($id);
         $user = Users::find($id);
         require "views/users/Edit.view.php";
     }
 
-    public function update($id)
+    public function update()
     {
+        $id = $_GET['id'];
         $data = [
             'name' => $_POST['name'],
             'email' => $_POST['email'],
             'roles' => $_POST['roles']
         ];
 
-        Users::update($id, $data);
+        Users::updateUser($id, $data);
         header("Location: /users");
 
     }
 
     public function destroy()
     {
-
+        $id = $_GET['id'];
+        Users::destroy($id);
+        header("Location: /users");
     }
 }
