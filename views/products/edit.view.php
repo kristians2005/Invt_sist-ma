@@ -1,3 +1,4 @@
+<?php require_once "views/partials/header.view.php"; ?>
 <h1>Edit Product</h1>
 
 <form action="/products/update/<?= $product['id'] ?>" method="POST">
@@ -20,3 +21,4 @@
 </form>
 
 <a href="/products">Back to List</a>
+<?php require_once "views/partials/header.view.php"; ?>

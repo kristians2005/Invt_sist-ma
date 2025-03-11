@@ -1,3 +1,4 @@
+<?php require_once "views/partials/header.view.php"; ?>
 <h1>Product List</h1>
 
 <a href="/products/create">Add New Product</a>
@@ -33,4 +34,4 @@
         <?php endforeach; ?>
     </tbody>
 </table>
-/
+<?php require_once "views/partials/footer.view.php"; ?>
