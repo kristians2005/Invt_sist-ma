@@ -7,6 +7,6 @@
 <p><strong>Price:</strong> $<?= number_format($product['price'], 2) ?></p>
 <p><strong>Category:</strong> <?= htmlspecialchars($product['category']) ?></p>
 
-<a href="/products/edit?id=<?= $product['id'] ?>">Edit</a> |
-<a href="/products/destroy?id=<?= $product['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a> |
+<a href="/products/edit/<?= $product['id'] ?>">Edit</a> |
+<a href="/products/destroy/<?= $product['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a> |
 <a href="/products">Back to List</a>
