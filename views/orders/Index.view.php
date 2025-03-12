@@ -1,5 +1,5 @@
 <?php require_once "views/partials/header.view.php"; ?>
-<div class="pt-20">
+<div class="p-20">
     <h1>Pasūtījumu/Darījumu Skats</h1>
 
     <h2>Kas notiek ar produktiem</h2>
