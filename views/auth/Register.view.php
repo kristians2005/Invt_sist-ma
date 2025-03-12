@@ -1,6 +1,4 @@
 <?php require_once "views/partials/header.view.php"; ?>
-
-
 <div class="min-h-screen flex flex-col items-center justify-center">
     <h1 class="text-3xl text-center font-bold mb-8">Register</h1>
 
@@ -42,6 +40,4 @@
         </div>
     </form>
 </div>
-
-
 <?php require_once "views/partials/footer.view.php"; ?>
