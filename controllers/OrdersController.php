@@ -57,7 +57,7 @@ class OrdersController
     public function order()
     {
         $data = [
-            'products' => $this->orderModel->getAllProducts(), // Produktu saraksts pasūtīšanai
+            'products' => $this->orderModel->getAllProducts(), 
             'error' => null,
             'success' => null
         ];
