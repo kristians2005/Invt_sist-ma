@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../dataBase.php';
+
+require_once __DIR__ . '/../dataBase.php'; // Points to root from models/
+
 
 class Order
 {

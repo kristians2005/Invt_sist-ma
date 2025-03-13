@@ -1,10 +1,10 @@
--- Create the database
+
 CREATE DATABASE inv_sistema;
 
--- Switch to the database
+
 USE inv_sistema;
 
--- users:
+
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL,
@@ -14,7 +14,6 @@ CREATE TABLE users (
 );
 
 
--- inventory:
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
