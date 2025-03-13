@@ -1,3 +1,4 @@
+<?php require_once "views/partials/header.view.php"; ?>
 <h1>Edit Inventory Item</h1>
 <form action="/inventory/update/<?= $item['id'] ?>" method="POST">
     <label>Product:</label>
@@ -18,3 +19,4 @@
 
     <button type="submit">Update</button>
 </form>
+<?php require_once "views/partials/footer.view.php"; ?>

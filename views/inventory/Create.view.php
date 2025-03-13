@@ -1,3 +1,4 @@
+<?php require_once "views/partials/header.view.php"; ?>
 <form action="/inventory/store" method="POST">
     <label>Product:</label>
     <select name="product_id" required>
@@ -18,3 +19,4 @@
 
     <button type="submit">Add to Inventory</button>
 </form>
+<?php require_once "views/partials/footer.view.php"; ?>

@@ -1,35 +1,40 @@
-<h1>Product List</h1>
+<?php require_once "views/partials/header.view.php"; ?>
+<div class="p-20">
+    <h1>Product List</h1>
 
-<a href="/products/create">Add New Product</a>
-<a href="/inventory">Inventory</a>
+    <a href="/products/create">Add New Product</a>
+    <a href="/inventory">Inventory</a>
+    <a href="/">Dashboard</a>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>SKU</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($products as $product): ?>
+    <table border="1">
+        <thead>
             <tr>
-                <td><?= $product['id'] ?></td>
-                <td><?= htmlspecialchars($product['name']) ?></td>
-                <td><?= htmlspecialchars($product['sku']) ?></td>
-                <td>$<?= number_format($product['price'], 2) ?></td>
-                <td><?= htmlspecialchars($product['category']) ?></td>
-                <td>
-                    <a href="/products/show/<?= $product['id'] ?>">View</a> |
-                    <a href="/products/edit/<?= $product['id'] ?>">Edit</a> |
-                    <a href="/products/destroy/<?= $product['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
-                </td>
-
+                <th>ID</th>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Actions</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-/
+        </thead>
+        <tbody>
+            <?php foreach ($products as $product): ?>
+                <tr>
+                    <td><?= $product['id'] ?></td>
+                    <td><?= htmlspecialchars($product['name']) ?></td>
+                    <td><?= htmlspecialchars($product['sku']) ?></td>
+                    <td>$<?= number_format($product['price'], 2) ?></td>
+                    <td><?= htmlspecialchars($product['category']) ?></td>
+                    <td>
+                        <a href="/products/show/<?= $product['id'] ?>">View</a> |
+                        <a href="/products/edit/<?= $product['id'] ?>">Edit</a> |
+                        <a href="/products/destroy/<?= $product['id'] ?>"
+                            onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<?php require_once "views/partials/footer.view.php"; ?>

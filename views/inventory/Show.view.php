@@ -1,3 +1,5 @@
+<?php require_once "views/partials/header.view.php"; ?>
+
 <h1>Inventory Details</h1>
 
 <p><strong>ID:</strong> <?= $inventory['id'] ?></p>
@@ -9,3 +11,4 @@
 <a href="/inventory/edit/<?= $inventory['id'] ?>">Edit</a> |
 <a href="/inventory/destroy/<?= $inventory['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a> |
 <a href="/inventory">Back to List</a>
+<?php require_once "views/partials/footer.view.php"; ?>

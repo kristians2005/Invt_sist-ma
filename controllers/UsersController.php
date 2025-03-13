@@ -4,137 +4,114 @@ require_once "models/Users.php";
 
 class UsersController
 {
-    private $usersModel;
-
-    public function __construct()
-    {
-        $this->usersModel = new Users();
-        session_start();
-    }
-
-    private function checkRole($requiredRole)
-    {
-        $userId = $_SESSION['user_id'] ?? null;
-        if (!$userId)
-            return false;
-        return $this->usersModel->getRole($userId) === $requiredRole;
-    }
-
-    private function isAdmin()
-    {
-        return $this->checkRole('Admin');
-    }
-    private function isWorker()
-    {
-        return $this->checkRole('Worker');
-    }
 
     public function index()
     {
-        if ($this->isAdmin() || $this->isWorker()) {
-            $users = $this->usersModel->getAll();
-            require "views/auth/index.view.php";
-        } else {
-            header('HTTP/1.1 403 Forbidden');
-            echo "Access denied.";
-            exit;
-        }
+        $users = Users::all();
+        require "views/users/index.view.php";
     }
 
     public function show()
     {
-        if ($this->isAdmin() || $this->isWorker()) {
-            $user = $this->usersModel->find($_GET['id']);
-            if ($user) {
-                require "views/auth/show.view.php";
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo "User not found.";
-                exit;
-            }
-        } else {
-            header('HTTP/1.1 403 Forbidden');
-            echo "Access denied.";
-            exit;
-        }
+      
     }
 
     public function create()
     {
-        if ($this->isAdmin()) {
-            require "views/auth/create.view.php";
-        } else {
-            header('HTTP/1.1 403 Forbidden');
-            echo "Access denied.";
-            exit;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+            $roles = $_POST['roles'];
+
+            Users::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'roles' => $roles
+            ]);
+
+            header("Location: /users");
         }
+        require "views/users/Create.view.php";
     }
 
     public function store()
     {
-        if ($this->isAdmin()) {
-            try {
-                $data = [
-                    'username' => $_POST['username'],
-                    'epasts' => $_POST['epasts'],
-                    'roles' => $_POST['roles'],
-                    'parole' => $_POST['parole']
-                ];
-                $this->usersModel->create($data);
-                header("Location: /users/index");
-                exit;
-            } catch (Exception $e) {
-                header('HTTP/1.1 500 Internal Server Error');
-                echo "Error creating user: " . $e->getMessage();
-                exit;
-            }
-        } else {
-            header('HTTP/1.1 403 Forbidden');
-            echo "Access denied.";
-            exit;
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $password_confirmation = $_POST['password_confirmation'];
+        $roles = $_POST['roles'];
+
+        $error = [];
+
+        if (Validator::required($name)) {
+            $error["name"] = "Name is required.";
         }
+
+        if (!Validator::strLengt($name, 3, 50)) {
+            $error["name"] = "Name must be between 3 and 50 characters long.";
+        }
+
+        if (!Validator::passwordMatch($password, $password_confirmation)) {
+            $error["password"] = "Passwords do not match.";
+        }
+
+        if (!Validator::passwordContains($password)) {
+            $error["password"] = "Password must contain at least one number and one uppercase letter and one simbol.";
+        }
+
+        if (!Validator::passwordLength($password)) {
+            $error["password"] = "Password must be at least 8 characters long.";
+        }
+
+        if (!Validator::email($email)) {
+            $error["email"] = "Email is not valid.";
+        }
+
+        if (Auth::emailExists($email)) {
+            $error["email"] = "This email is already registered. Please use a different email.";
+        }
+
+
+
+        var_dump($error);
+
+        if (empty($error)) {
+            Auth::register($name, $email, $password);
+            header('Location: /users');
+        } else {
+            require "views/users/Create.view.php";
+        }
+    }
+
+    public function edit()
+    {
+
+        $id = $_GET['id'];
+        $user = Users::find($id);
+        require "views/users/Edit.view.php";
     }
 
     public function update()
     {
-        if ($this->isAdmin()) {
-            try {
-                $data = [
-                    'username' => $_POST['username'],
-                    'epasts' => $_POST['epasts'],
-                    'roles' => $_POST['roles']
-                ];
-                $this->usersModel->update($_POST['id'], $data);
-                header("Location: /users/index");
-                exit;
-            } catch (Exception $e) {
-                header('HTTP/1.1 500 Internal Server Error');
-                echo "Error updating user: " . $e->getMessage();
-                exit;
-            }
-        } else {
-            header('HTTP/1.1 403 Forbidden');
-            echo "Access denied.";
-            exit;
-        }
+        $id = $_GET['id'];
+        $data = [
+            'name' => $_POST['name'],
+            'email' => $_POST['email'],
+            'roles' => $_POST['roles']
+        ];
+
+        Users::updateUser($id, $data);
+        header("Location: /users");
+
     }
 
     public function destroy()
     {
-        if ($this->isAdmin()) {
-            try {
-                $this->usersModel->delete($_POST['id']);
-                header("Location: /users/index");
-                exit;
-            } catch (Exception $e) {
-                header('HTTP/1.1 500 Internal Server Error');
-                echo "Error deleting user: " . $e->getMessage();
-                exit;
-            }
-        } else {
-            header('HTTP/1.1 403 Forbidden');
-            echo "Access denied.";
-            exit;
-        }
+        $id = $_GET['id'];
+        Users::destroy($id);
+        header("Location: /users");
     }
 }
