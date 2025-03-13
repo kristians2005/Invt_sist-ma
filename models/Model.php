@@ -50,7 +50,14 @@ abstract class Model
         return false;
     }
 
+    public static function find(int $id): ?array
+    {
+        self::init();
+        $sql = "SELECT * FROM " . static::getTableName() . " WHERE id = :id LIMIT 1";
 
+        $record = self::$db->query($sql, [":id" => $id])->fetch();
+        return $record ?: null;
+    }
 
     public static function emailExists($email)
     {
@@ -71,18 +78,18 @@ abstract class Model
         return self::$db->query($sql, $data) ? true : false;
     }
 
-    public static function update(int $id, array $data): bool
+    public static function updateUser(int $id, array $data)
     {
         self::init();
-        $updates = implode(", ", array_map(fn($key) => "$key = :$key", array_keys($data)));
 
-        $sql = "UPDATE " . static::getTableName() . " SET $updates WHERE id = :id";
-        $data['id'] = $id;
+        $sql = "UPDATE " . static::getTableName() . " SET name = :name, email = :email, roles = :roles WHERE id = :id";
 
-        return self::$db->query($sql, $data) ? true : false;
+        $records = self::$db->query($sql, [":name" => $data["name"], ":email" => $data["email"], ":roles" => $data["roles"], ":id" => $id]);
+        return $records;
+        ;
     }
 
-    public static function delete(int $id): bool
+    public static function destroy(int $id): bool
     {
         self::init();
         $sql = "DELETE FROM " . static::getTableName() . " WHERE id = :id";

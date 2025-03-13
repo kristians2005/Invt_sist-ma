@@ -1,30 +1,35 @@
-<h1>Inventory List</h1>
-<a href="/inventory/create">Add New Item</a>
-<a href="/products">Products</a>
-<a href="/">Dashboard</a>
+<?php require_once "views/partials/header.view.php"; ?>
+<div class="p-20">
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Location</th>
-        <th>Actions</th>
-    </tr>
-    <?php foreach ($inventory as $item): ?>
+    <h1>Inventory List</h1>
+    <a href="/inventory/create">Add New Item</a>
+    <a href="/products">Products</a>
+    <a href="/">Dashboard</a>
+
+    <table border="1">
         <tr>
-            <td><?= $item["id"] ?></td>
-            <td><?= $item["product_id"] ?></td>
-            <td><?= $item["quantity"] ?></td>
-            <td><?= $item["location"] ?></td>
-            <td>
-                <a href="/inventory/show/<?= $item['id'] ?>">View</a> |
-                <a href="/inventory/edit/<?= $item['id'] ?>">Edit</a> |
-                <form action="/inventory/destroy/<?= $item['id'] ?>" onsubmit="return confirm('Are you sure?')"
-                    method="POST" style="display:inline;">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Location</th>
+            <th>Actions</th>
         </tr>
-    <?php endforeach; ?>
-</table>
+        <?php foreach ($inventory as $item): ?>
+            <tr>
+                <td><?= $item["id"] ?></td>
+                <td><?= $item["product_id"] ?></td>
+                <td><?= $item["quantity"] ?></td>
+                <td><?= $item["location"] ?></td>
+                <td>
+                    <a href="/inventory/show/<?= $item['id'] ?>">View</a> |
+                    <a href="/inventory/edit/<?= $item['id'] ?>">Edit</a> |
+                    <form action="/inventory/destroy/<?= $item['id'] ?>" onsubmit="return confirm('Are you sure?')"
+                        method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
+<?php require_once "views/partials/footer.view.php"; ?>

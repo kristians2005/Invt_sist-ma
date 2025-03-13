@@ -1,3 +1,4 @@
+<?php require_once "views/partials/header.view.php"; ?>
 <h1>Product Details</h1>
 
 <p><strong>ID:</strong> <?= $product['id'] ?></p>
@@ -9,4 +10,7 @@
 
 <a href="/products/edit/<?= $product['id'] ?>">Edit</a> |
 <a href="/products/destroy/<?= $product['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a> |
+
 <a href="/products">Back to List</a>
+<?php require_once "views/partials/footer.view.php"; ?>
+

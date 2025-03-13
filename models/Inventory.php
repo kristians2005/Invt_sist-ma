@@ -1,6 +1,6 @@
 <?php
 
-require_once "models/Model.php";
+require "models/Model.php";
 
 class Inventory extends Model
 {
