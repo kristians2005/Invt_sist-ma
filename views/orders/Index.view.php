@@ -1,5 +1,5 @@
 <?php require_once "views/partials/header.view.php"; ?>
-<div class="pt-20">
+<div class="p-20">
     <h1>Pasūtījumu/Darījumu Skats</h1>
 
     <h2>Kas notiek ar produktiem</h2>
@@ -30,13 +30,29 @@
         <?php endforeach; ?>
     </ul>
 
-    <h2>Pārdotie/Utilizētie produkti (pēdējās 7 dienās)</h2>
-    <ul>
-        <?php foreach ($data['sold_utilized'] as $item): ?>
-            <li><?php echo $item['name']; ?> (SKU: <?php echo $item['sku']; ?>) - Atlikums: <?php echo $item['quantity']; ?>
-                (Atjaunots: <?php echo $item['updated_at']; ?>)</li>
-        <?php endforeach; ?>
-    </ul>
-</div>
+
+<h2>Pārdotie/Utilizētie produkti (pēdējās 7 dienās)</h2>
+<ul>
+    <?php foreach ($data['sold_utilized'] as $item): ?>
+        <li><?php echo $item['name']; ?> (SKU: <?php echo $item['sku']; ?>) - Atlikums: <?php echo $item['quantity']; ?> (Atjaunots: <?php echo $item['updated_at']; ?>)</li>
+    <?php endforeach; ?>
+</ul>
+
+<h2>Visi pasūtījumi</h2>
+<table>
+    <tr><th>ID</th><th>Lietotājs</th><th>Produkts</th><th>Daudzums</th><th>Statuss</th><th>Izveidots</th></tr>
+    <?php foreach ($data['orders'] as $order): ?>
+        <tr>
+            <td><?php echo $order['id']; ?></td>
+            <td><?php echo $order['user_name']; ?></td>
+            <td><?php echo $order['product_name']; ?></td>
+            <td><?php echo $order['quantity']; ?></td>
+            <td><?php echo $order['status']; ?></td>
+            <td><?php echo $order['created_at']; ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
 
 <?php require_once "views/partials/footer.view.php"; ?>
+

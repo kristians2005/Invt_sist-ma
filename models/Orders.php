@@ -1,6 +1,8 @@
 <?php
 
+
 require_once __DIR__ . '/../dataBase.php'; // Points to root from models/
+
 
 class Order
 {
@@ -25,7 +27,8 @@ class Order
     public function getAllProducts()
     {
         $statement = $this->db->query("
-            SELECT p.name, p.sku, i.quantity, i.location, i.updated_at 
+            SELECT p.id, p.name, p.sku, p.description, p.price, p.category, 
+                   i.quantity, i.location, i.updated_at 
             FROM products p 
             JOIN inventory i ON p.id = i.product_id
         ");
@@ -68,5 +71,36 @@ class Order
             [$quantityChange, $productId]
         );
         return $statement->rowCount() > 0;
+    }
+
+    public function createOrder($userId, $productId, $quantity)
+    {
+        $product = $this->getProductById($productId);
+        if (!$product || $product['quantity'] < $quantity) {
+            return false;
+        }
+
+        $statement = $this->db->query("
+            INSERT INTO orders (user_id, product_id, quantity, status) 
+            VALUES (?, ?, ?, 'pending')", 
+            [$userId ?: null, $productId, $quantity]
+        );
+
+        if ($statement->rowCount() > 0) {
+            $this->updateInventory($productId, -$quantity);
+            return true;
+        }
+        return false;
+    }
+
+    public function getAllOrders()
+    {
+        $statement = $this->db->query("
+            SELECT o.id, u.name AS user_name, p.name AS product_name, o.quantity, o.status, o.created_at 
+            FROM orders o 
+            LEFT JOIN users u ON o.user_id = u.id 
+            JOIN products p ON o.product_id = p.id
+        ");
+        return $statement->fetchAll();
     }
 }

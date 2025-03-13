@@ -22,7 +22,6 @@ return [
     '/products/show/(:num)' => 'ProductsController@show',
     '/products/destroy/(:num)' => 'ProductsController@destroy',
 
-
     //auth
     '/login' => 'AuthController@login',
     '/register' => 'AuthController@register',
@@ -41,15 +40,12 @@ return [
 
     //orders
     '/orders' => 'OrdersController@index',
-    '/orders/show' => 'OrdersController@show',
+    '/orders/show/(:num)' => 'OrdersController@show', // Fixed: Added (:num) for product ID
     '/orders/store' => 'OrdersController@store',
+    '/orders/order' => 'OrdersController@order',     // Added for the new order view
 
     //reports
     '/reports' => 'ReportsController@index',
-    '/repotts/export' => 'ReportsController@export',
+    '/repotts/export' => 'ReportsController@export', // Typo: should be /reports/export?
     '/reports/show' => 'ReportsController@show',
-
-
-
-
 ];

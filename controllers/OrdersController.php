@@ -16,7 +16,8 @@ class OrdersController
         $data = [
             'low_stock' => $this->orderModel->getLowStock(),
             'all_products' => $this->orderModel->getAllProducts(),
-            'sold_utilized' => $this->orderModel->getSoldUtilized()
+            'sold_utilized' => $this->orderModel->getSoldUtilized(),
+            'orders' => $this->orderModel->getAllOrders()
         ];
 
         require "views/orders/index.view.php";
@@ -35,19 +36,49 @@ class OrdersController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productId = $_POST['product_id'] ?? null;
-            $quantityChange = (int)($_POST['quantity_change'] ?? 0);
+            $quantity = (int)($_POST['quantity'] ?? 0);
             $userId = $_SESSION['user_id'] ?? 1;
 
-            if ($productId && $quantityChange !== 0) {
-                $success = $this->orderModel->updateInventory($productId, $quantityChange);
+            if ($productId && $quantity > 0) {
+                $success = $this->orderModel->createOrder($userId, $productId, $quantity);
                 if ($success) {
-                    header("Location: /orders");
+                    header("Location: /orders/order"); // Pāradresē uz order skatu
                     exit;
                 } else {
-                    $data['error'] = "Neizdevās atjaunināt inventāru.";
+                    $data['error'] = "Neizdevās veikt pirkumu. Pārbaudiet krājumus!";
                 }
+            } else {
+                $data['error'] = "Nepareizi ievadīti dati.";
             }
         }
         require "views/orders/create.view.php";
+    }
+
+    public function order()
+    {
+        $data = [
+            'products' => $this->orderModel->getAllProducts(), 
+            'error' => null,
+            'success' => null
+        ];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productId = $_POST['product_id'] ?? null;
+            $quantity = (int)($_POST['quantity'] ?? 0);
+            $userId = $_SESSION['user_id'] ?? 1;
+
+            if ($productId && $quantity > 0) {
+                $success = $this->orderModel->createOrder($userId, $productId, $quantity);
+                if ($success) {
+                    $data['success'] = "Pasūtījums veiksmīgi izveidots!";
+                } else {
+                    $data['error'] = "Neizdevās veikt pasūtījumu. Pārbaudiet krājumus!";
+                }
+            } else {
+                $data['error'] = "Nepareizi ievadīti dati.";
+            }
+        }
+
+        require "views/orders/order.view.php";
     }
 }
