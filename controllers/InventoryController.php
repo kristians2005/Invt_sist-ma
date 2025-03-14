@@ -6,12 +6,20 @@ class InventoryController
 {
     public function index()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         $inventory = Inventory::all();
         require "views/inventory/index.view.php";
     }
 
     public function show($id)
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         $inventory = Inventory::find($id);
 
         if (!$inventory) {
@@ -27,12 +35,20 @@ class InventoryController
 
     public function create()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         $products = Product::all();
         require "views/inventory/create.view.php";
     }
 
     public function store()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $data = [
                 "product_id" => $_POST["product_id"],
@@ -51,6 +67,10 @@ class InventoryController
 
     public function edit($id)
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         $products = Product::all();
 
         $item = Inventory::find($id);
@@ -62,6 +82,10 @@ class InventoryController
 
     public function update($id)
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $data = [
                 "quantity" => $_POST["quantity"],
@@ -78,6 +102,10 @@ class InventoryController
 
     public function destroy($id)
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         Inventory::delete($id);
         header("Location: /inventory");
     }

@@ -1,16 +1,43 @@
 <?php require_once "views/partials/header.view.php"; ?>
-<h1>Product Details</h1>
+<div class="container mx-auto p-20">
+    <h1 class="text-3xl font-bold mb-6">Product Details</h1>
 
-<p><strong>ID:</strong> <?= $product['id'] ?></p>
-<p><strong>Name:</strong> <?= htmlspecialchars($product['name']) ?></p>
-<p><strong>Description:</strong> <?= nl2br(htmlspecialchars($product['description'])) ?></p>
-<p><strong>SKU:</strong> <?= htmlspecialchars($product['sku']) ?></p>
-<p><strong>Price:</strong> $<?= number_format($product['price'], 2) ?></p>
-<p><strong>Category:</strong> <?= htmlspecialchars($product['category']) ?></p>
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <div class="grid gap-4">
+                <div class="grid grid-cols-2">
+                    <p class="font-bold">ID:</p>
+                    <p><?= $product['id'] ?></p>
+                </div>
+                <div class="grid grid-cols-2">
+                    <p class="font-bold">Name:</p>
+                    <p><?= htmlspecialchars($product['name']) ?></p>
+                </div>
+                <div class="grid grid-cols-2">
+                    <p class="font-bold">Description:</p>
+                    <p><?= nl2br(htmlspecialchars($product['description'])) ?></p>
+                </div>
+                <div class="grid grid-cols-2">
+                    <p class="font-bold">SKU:</p>
+                    <p><?= htmlspecialchars($product['sku']) ?></p>
+                </div>
+                <div class="grid grid-cols-2">
+                    <p class="font-bold">Price:</p>
+                    <p>$<?= number_format($product['price'], 2) ?></p>
+                </div>
+                <div class="grid grid-cols-2">
+                    <p class="font-bold">Category:</p>
+                    <p><?= htmlspecialchars($product['category']) ?></p>
+                </div>
+            </div>
 
-<a href="/products/edit/<?= $product['id'] ?>">Edit</a> |
-<a href="/products/destroy/<?= $product['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a> |
-
-<a href="/products">Back to List</a>
-<?php require_once "views/partials/footer.view.php"; ?>
-
+            <div class="card-actions justify-end mt-6">
+                <a href="/products/edit/<?= $product['id'] ?>" class="btn btn-primary">Edit</a>
+                <a href="/products/destroy/<?= $product['id'] ?>" class="btn btn-error"
+                    onclick="return confirm('Are you sure?')">Delete</a>
+                <a href="/products" class="btn btn-ghost">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php require_once "views/partials/footer.view.php"; ?></div>

@@ -55,7 +55,8 @@ class Order
                    i.quantity, i.location, i.updated_at 
             FROM products p 
             JOIN inventory i ON p.id = i.product_id 
-            WHERE p.id = ?", [$productId]
+            WHERE p.id = ?",
+            [$productId]
         );
         $result = $statement->fetchAll();
         return $result[0] ?? null;
@@ -67,7 +68,7 @@ class Order
             UPDATE inventory 
             SET quantity = GREATEST(quantity + ?, 0), 
                 updated_at = NOW() 
-            WHERE product_id = ?", 
+            WHERE product_id = ?",
             [$quantityChange, $productId]
         );
         return $statement->rowCount() > 0;
@@ -82,7 +83,7 @@ class Order
 
         $statement = $this->db->query("
             INSERT INTO orders (user_id, product_id, quantity, status) 
-            VALUES (?, ?, ?, 'pending')", 
+            VALUES (?, ?, ?, 'pending')",
             [$userId ?: null, $productId, $quantity]
         );
 
@@ -102,5 +103,35 @@ class Order
             JOIN products p ON o.product_id = p.id
         ");
         return $statement->fetchAll();
+    }
+
+    public function getOrderById($id)
+    {
+        $statement = $this->db->query("
+            SELECT o.id, o.quantity, o.status, o.created_at,
+                   u.name AS user_name,
+                   p.name AS product_name
+            FROM orders o 
+            LEFT JOIN users u ON o.user_id = u.id 
+            JOIN products p ON o.product_id = p.id
+            WHERE o.id = ?
+        ", [$id]);
+        return $statement->fetch();
+    }
+
+    public function updateOrderStatus($orderId, $status)
+    {
+        $allowedStatuses = ['pending', 'completed', 'cancelled'];
+        if (!in_array($status, $allowedStatuses)) {
+            return false;
+        }
+
+        $statement = $this->db->query("
+            UPDATE orders 
+            SET status = ? 
+            WHERE id = ?
+        ", [$status, $orderId]);
+
+        return $statement->rowCount() > 0;
     }
 }

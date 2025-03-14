@@ -50,6 +50,14 @@ abstract class Model
         return false;
     }
 
+    public static function getUser($email)
+    {
+        self::init();
+        $sql = "SELECT * FROM " . static::getTableName() . " WHERE email = :email";
+        $records = self::$db->query($sql, [":email" => $email])->fetch();
+        return $records;
+    }
+
     public static function find(int $id): ?array
     {
         self::init();

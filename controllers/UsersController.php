@@ -7,17 +7,28 @@ class UsersController
 
     public function index()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         $users = Users::all();
         require "views/users/index.view.php";
     }
 
     public function show()
     {
-      
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
     }
 
     public function create()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -25,10 +36,10 @@ class UsersController
             $roles = $_POST['roles'];
 
             Users::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
-            'roles' => $roles
+                'name' => $name,
+                'email' => $email,
+                'password' => $password,
+                'roles' => $roles
             ]);
 
             header("Location: /users");
@@ -38,6 +49,10 @@ class UsersController
 
     public function store()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         $name = $_POST['name'];
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -88,6 +103,10 @@ class UsersController
 
     public function edit()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
 
         $id = $_GET['id'];
         $user = Users::find($id);
@@ -96,6 +115,11 @@ class UsersController
 
     public function update()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
+
         $id = $_GET['id'];
         $data = [
             'name' => $_POST['name'],
@@ -104,12 +128,24 @@ class UsersController
         ];
 
         Users::updateUser($id, $data);
-        header("Location: /users");
 
+        // Update session if the updated user is the logged-in user
+        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $id) {
+            $_SESSION['user_name'] = $data['name'];
+            $_SESSION['user_email'] = $data['email'];
+            $_SESSION['user_role'] = $data['roles'];
+        }
+
+        header("Location: /users");
     }
 
     public function destroy()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
+
         $id = $_GET['id'];
         Users::destroy($id);
         header("Location: /users");

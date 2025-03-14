@@ -1,7 +1,7 @@
 <?php
 
 require "models/Auth.php";
-require "validator.php";
+// require "validator.php";
 
 class AuthController
 {
@@ -10,13 +10,20 @@ class AuthController
 
     public function login()
     {
+        if (isset($_SESSION['logged_in'])) {
+            header('Location: /');
+            return;
+        }
 
         require "views/auth/Login.view.php";
     }
 
     public function register()
     {
-
+        if (isset($_SESSION['logged_in'])) {
+            header('Location: /');
+            return;
+        }
 
         require "views/auth/Register.view.php";
 
@@ -25,11 +32,17 @@ class AuthController
     public function logout()
     {
 
-
+        // session_start();
+        session_destroy();
+        header('Location: /');
     }
 
     public function authenticate()
     {
+        if (isset($_SESSION['logged_in'])) {
+            header('Location: /');
+            return;
+        }
 
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -50,8 +63,17 @@ class AuthController
         }
 
         if (Auth::login($email, $password)) {
-            session_start();
-            $_SESSION['user'] = $email;
+            $user = Auth::getUser($email);
+            if ($_SESSION == null) {
+                session_start();
+            }
+
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['user_role'] = $user['roles'];
+            $_SESSION['logged_in'] = true;
+
             header('Location: /');
             return;
         }
@@ -62,6 +84,11 @@ class AuthController
 
     public function registerUser()
     {
+        if (isset($_SESSION['logged_in'])) {
+            header('Location: /');
+            return;
+        }
+
         $name = $_POST['name'];
         $email = $_POST['email'];
         $password = $_POST['password'];

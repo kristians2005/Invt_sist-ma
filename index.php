@@ -1,4 +1,6 @@
 <?php
+require_once "session.php";
+require_once "validator.php";
 
 $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
 

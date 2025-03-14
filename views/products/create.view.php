@@ -1,24 +1,49 @@
 <?php require_once "views/partials/header.view.php"; ?>
-<h1>Add New Product</h1>
+<div class="p-20">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-6">Add New Product</h1>
 
-<form action="/products/store" method="POST">
-    <label>Name:</label>
-    <input type="text" name="name" required><br>
+        <form action="/products/store" method="POST" class="form-control w-full max-w-lg">
+            <div class="mb-4"></div>
+            <label class="label">
+                <span class="label-text">Name:</span>
+            </label>
+            <input type="text" name="name" required class="input input-bordered w-full">
+    </div>
 
-    <label>Description:</label>
-    <textarea name="description"></textarea><br>
+    <div class="mb-4">
+        <label class="label">
+            <span class="label-text">Description:</span>
+        </label>
+        <textarea name="description" class="textarea textarea-bordered w-full h-24"></textarea>
+    </div>
 
-    <label>SKU:</label>
-    <input type="text" name="sku" required><br>
+    <div class="mb-4">
+        <label class="label"></label>
+        <span class="label-text">SKU:</span>
+        </label>
+        <input type="text" name="sku" required class="input input-bordered w-full">
+    </div>
 
-    <label>Price:</label>
-    <input type="number" step="0.01" name="price" required><br>
+    <div class="mb-4">
+        <label class="label">
+            <span class="label-text">Price:</span>
+        </label>
+        <input type="number" step="0.01" name="price" required class="input input-bordered w-full">
+    </div>
 
-    <label>Category:</label>
-    <input type="text" name="category" required><br>
+    <div class="mb-4">
+        <label class="label">
+            <span class="label-text">Category:</span>
+        </label>
+        <input type="text" name="category" required class="input input-bordered w-full">
+    </div>
 
-    <button type="submit">Create Product</button>
-</form>
-
-<a href="/products">Back to List</a>
-<?php require_once "views/partials/header.view.php"; ?>
+    <div class="mt-6">
+        <button type="submit" class="btn btn-primary">Create Product</button>
+        <a href="/products" class="btn btn-ghost ml-2">Back to List</a>
+    </div>
+    </form>
+</div>
+</div>
+<?php require_once "views/partials/footer.view.php"; ?>

@@ -6,12 +6,20 @@ class ProductsController
 {
     public function index()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         $products = Product::all();
         require "views/products/index.view.php";
     }
 
     public function show($id)
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         $product = Product::find($id);
         if (!$product) {
             die("Product not found.");
@@ -21,11 +29,19 @@ class ProductsController
 
     public function create()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         require "views/products/create.view.php";
     }
 
     public function store()
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $data = [
                 "name" => $_POST["name"],
@@ -45,6 +61,10 @@ class ProductsController
 
     public function edit($id)
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         $product = Product::find($id);
         if (!$product) {
             die("Product not found.");
@@ -55,6 +75,10 @@ class ProductsController
 
     public function update($id)
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $data = [
                 "name" => $_POST["name"],
@@ -74,6 +98,10 @@ class ProductsController
 
     public function destroy($id)
     {
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
+        }
         Product::delete($id);
         header("Location: /products");
     }
