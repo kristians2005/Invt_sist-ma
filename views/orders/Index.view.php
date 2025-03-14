@@ -4,6 +4,8 @@
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-4xl font-bold">Pasūtījumu/Darījumu Skats</h1>
             <a href="/orders/order" class="btn btn-primary">Jauns Pasūtījums</a>
+            <a href="/reports/orders" class="btn btn-primary">Generēt atskaiti par visiem pasūtījumiem</a>
+
         </div>
 
         <div class="card bg-base-100 shadow-xl mb-8"></div>
