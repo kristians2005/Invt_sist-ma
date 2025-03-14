@@ -16,7 +16,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Product</th>
+                        <th>Price</th>
                         <th>Quantity</th>
+                        <th>Summ</th>
                         <th>Location</th>
                         <th>Actions</th>
                     </tr>
@@ -25,7 +27,10 @@
                     <?php foreach ($inventory as $item): ?>
                         <tr>
                             <td><?= $item["id"] ?></td>
-                            <td><?= $item["product_id"] ?></td>
+                            <td><?= $products[$item["product_id"]]['name'] ?? 'Unknown Product' ?></td>
+                            <td><?= $products[$item["product_id"]]['price'] ?? 'Unknown Product' ?>&nbsp;€</td>
+                            <td><?= $products[$item["product_id"]]['price'] * $item["quantity"] ?? 'Unknown Product' ?>&nbsp;€
+                            </td>
                             <td><?= $item["quantity"] ?></td>
                             <td><?= $item["location"] ?></td>
                             <td class="space-x-2">

@@ -45,7 +45,7 @@ return [
   '/orders/order' => 'OrdersController@order',     // Added for the new order view
 
   //reports
-  '/reports' => 'ReportsController@index',
+  '/reports/orders' => 'ReportsController@generateOrdersReport',
   '/repotts/export' => 'ReportsController@export', // Typo: should be /reports/export?
   '/reports/show' => 'ReportsController@show',
 ];

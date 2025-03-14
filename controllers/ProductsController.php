@@ -1,6 +1,6 @@
 <?php
 
-require "models/Product.php";
+require_once "models/Product.php";
 
 class ProductsController
 {
@@ -102,7 +102,7 @@ class ProductsController
             header("Location: /");
             exit();
         }
-        Product::delete($id);
+        Product::destroy($id);
         header("Location: /products");
     }
 }
