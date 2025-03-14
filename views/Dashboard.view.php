@@ -67,7 +67,7 @@
                 </div>
                 <h3 class="text-lg font-medium text-gray-300 mb-2">Products</h3>
                 <div class="flex items-baseline">
-                    <span class="text-3xl font-bold text-blue-400 stat-value">45</span>
+                    <span class="text-3xl font-bold text-blue-400 stat-value"><?php echo $productCount; ?></span>
                     <span class="ml-2 text-sm text-gray-500">items</span>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 </div>
                 <h3 class="text-lg font-medium text-gray-300 mb-2">Low Stock</h3>
                 <div class="flex items-baseline">
-                    <span class="text-3xl font-bold text-amber-400 stat-value">5</span>
+                    <span class="text-3xl font-bold text-amber-400 stat-value"><?php echo $LowStockProduct ?></span>
                     <span class="ml-2 text-sm text-gray-500">items</span>
                 </div>
             </div>
