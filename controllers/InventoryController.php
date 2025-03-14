@@ -1,6 +1,7 @@
 <?php
 
 require "models/Inventory.php";
+require_once "models/Product.php";
 
 class InventoryController
 {
@@ -11,6 +12,12 @@ class InventoryController
             exit();
         }
         $inventory = Inventory::all();
+        $productsArray = Product::all();
+        $products = [];
+        foreach ($productsArray as $product) {
+            $products[$product['id']] = $product;
+        }
+
         require "views/inventory/index.view.php";
     }
 
@@ -106,7 +113,7 @@ class InventoryController
             header("Location: /");
             exit();
         }
-        Inventory::delete($id);
+        Inventory::destroy($id);
         header("Location: /inventory");
     }
 }
