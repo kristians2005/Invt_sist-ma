@@ -2,24 +2,24 @@
 <div class="p-20">
     <div class="p-8 container mx-auto">
         <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold">Pasūtījumu/Darījumu Skats</h1>
-            <a href="/orders/order" class="btn btn-primary">Jauns Pasūtījums</a>
-            <a href="/reports/orders" class="btn btn-primary">Generēt atskaiti par visiem pasūtījumiem</a>
+            <h1 class="text-4xl font-bold">Order/deal view</h1>
+            <a href="/orders/order" class="btn btn-primary">New order</a>
+            <a href="/reports/orders" class="btn btn-primary">Generate a report on all orders</a>
 
         </div>
 
         <div class="card bg-base-100 shadow-xl mb-8"></div>
         <div class="card-body">
-            <h2 class="card-title mb-4">Kas notiek ar produktiem</h2>
+            <h2 class="card-title mb-4">Whats happening with the products</h2>
             <div class="overflow-x-auto">
                 <table class="table table-zebra w-full">
                     <thead>
                         <tr>
-                            <th>Nosaukums</th>
+                            <th>Name</th>
                             <th>SKU</th>
-                            <th>Atlikums</th>
-                            <th>Atrašanās vieta</th>
-                            <th>Pēdējais atjauninājums</th>
+                            <th>Quantity</th>
+                            <th>Location</th>
+                            <th>Last Update</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,14 +41,16 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
-                <h2 class="card-title text-warning">Produkti, kas iet uz beigām (mazāk par 10)</h2>
+                <h2 class="card-title text-warning">Products that are about to go out of stock (less than 10)
+                </h2>
                 <?php if (empty($data['low_stock'])): ?>
-                    <p class="text-gray-500 italic">Nav produktu ar zemu atlikumu</p>
+                    <p class="text-gray-500 italic">No products with low stock
+</p>
                 <?php else: ?>
                     <ul class="menu bg-base-100">
                         <?php foreach ($data['low_stock'] as $item): ?>
                             <li class="text-warning">
-                                <?php echo $item['name']; ?> (SKU: <?php echo $item['sku']; ?>) - Atlikums:
+                                <?php echo $item['name']; ?> (SKU: <?php echo $item['sku']; ?>) - Stock:
                                 <?php echo $item['quantity']; ?>
                             </li>
                         <?php endforeach; ?>
@@ -59,16 +61,17 @@
 
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
-                <h2 class="card-title">Pārdotie/Utilizētie produkti (pēdējās 7 dienās)</h2>
+                <h2 class="card-title">
+                Products Sold/Used (last 7 days)</h2>
                 <?php if (empty($data['sold_utilized'])): ?>
-                    <p class="text-gray-500 italic">Nav pārdoto vai utilizēto produktu pēdējo 7 dienu laikā</p>
+                    <p class="text-gray-500 italic">No products sold or disposed of in the last 7 days</p>
                 <?php else: ?>
                     <ul class="menu bg-base-100">
                         <?php foreach ($data['sold_utilized'] as $item): ?>
                             <li class="flex flex-col">
-                                <span><?php echo $item['name']; ?> (SKU: <?php echo $item['sku']; ?>) - Atlikums:
+                                <span><?php echo $item['name']; ?> (SKU: <?php echo $item['sku']; ?>) - Stock:
                                     <?php echo $item['quantity']; ?></span>
-                                <span class="text-gray-500 text-sm">Atjaunots: <?php echo $item['updated_at']; ?></span>
+                                <span class="text-gray-500 text-sm">Updated: <?php echo $item['updated_at']; ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -80,18 +83,18 @@
 
 <div class="card bg-base-100 shadow-xl">
     <div class="card-body p-20">
-        <h2 class="card-title mb-4">Visi pasūtījumi</h2>
+        <h2 class="card-title mb-4">All orders</h2>
         <div class="overflow-x-auto mb-[300px]">
             <table class="table table-zebra w-full">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Lietotājs</th>
-                        <th>Produkts</th>
-                        <th>Daudzums</th>
+                        <th>User</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
                         <th>Statuss</th>
-                        <th>Izveidots</th>
-                        <th>Darbības</th>
+                        <th>Created</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,11 +116,11 @@
                             </td>
                             <td><?php echo $order['created_at']; ?></td>
                             <td class="flex gap-2">
-                                <a href="/orders/show?id=<?php echo $order['id']; ?>" class="btn btn-sm btn-info">Skatīt</a>
+                                <a href="/orders/show?id=<?php echo $order['id']; ?>" class="btn btn-sm btn-info">View</a>
                                 <button onclick="updateStatus(<?php echo $order['id']; ?>, 'completed')"
                                     class="btn btn-sm btn-success">Pabeigt</button>
                                 <button onclick="updateStatus(<?php echo $order['id']; ?>, 'cancelled')"
-                                    class="btn btn-sm btn-error">Atcelt</button>
+                                    class="btn btn-sm btn-error">Cancel</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>

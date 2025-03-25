@@ -14,16 +14,17 @@
             <table class="table table-zebra">
                 <thead>
                     <tr>
-                        <th>Nosaukums</th>
+                        <th>Name</th>
                         <th>SKU</th>
-                        <th>Apraksts</th>
-                        <th>Cena</th>
-                        <th>Kategorija</th>
-                        <th>Atlikums</th>
-                        <th>Atrašanās vieta</th>
-                        <th>Pasūtīt</th>
-                        <th>Detaļas</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Location</th>
+                        <th>Order</th>
+                        <th>Details</th>
                     </tr>
+                   
                 </thead>
                 <tbody>
                     <?php foreach ($data['products'] as $product): ?>
@@ -40,12 +41,12 @@
                                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                     <input type="number" name="quantity" min="1" max="<?php echo $product['quantity']; ?>"
                                         required class="input input-bordered input-sm w-20">
-                                    <button type="submit" class="btn btn-primary btn-sm">Pasūtīt</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Order</button>
                                 </form>
                             </td>
                             <td>
                                 <a href="/orders?action=show&id=<?php echo $product['id']; ?>"
-                                    class="btn btn-ghost btn-sm">Skatīt</a>
+                                    class="btn btn-ghost btn-sm">View</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -54,7 +55,7 @@
         </div>
 
         <div class="mt-4">
-            <a href="/orders" class="btn btn-outline">Atpakaļ uz pārskatu</a>
+            <a href="/orders" class="btn btn-outline">Back to Overview</a>
         </div>
 
     </div>
