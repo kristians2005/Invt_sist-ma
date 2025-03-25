@@ -118,9 +118,13 @@ class OrdersController
 
     public function updateStatus()
     {
-        if (isset($_SESSION['logged_in'])) {
+        if (!isset($_SESSION['logged_in'])) {
             header('Location: /');
             return;
+        }
+        if (!Validator::Role('Admin')) {
+            header("Location: /");
+            exit();
         }
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);

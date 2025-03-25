@@ -44,23 +44,26 @@
 
 <script>
     function updateStatus(orderId, status) {
-        if (confirm('Vai tiešām vēlaties mainīt pasūtījuma statusu?')) {
-            fetch(`/orders/updateStatus`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id: orderId, status: status })
+        fetch('/orders/updateStatus', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: orderId, status: status })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Status updated successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to update status: ' + data.message);
+                }
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    } else {
-                        alert('Kļūda mainot statusu!');
-                    }
-                });
-        }
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating status.');
+            });
     }
 </script>
 
