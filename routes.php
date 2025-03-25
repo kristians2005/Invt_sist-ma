@@ -43,6 +43,7 @@ return [
   '/orders/show' => 'OrdersController@show', // Fixed: Added (:num) for product ID
   '/orders/store' => 'OrdersController@store',
   '/orders/order' => 'OrdersController@order',     // Added for the new order view
+  '/orders/updateStatus' => 'OrdersController@updateStatus',
 
   //reports
   '/reports/orders' => 'ReportsController@generateOrdersReport',

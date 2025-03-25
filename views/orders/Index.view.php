@@ -130,5 +130,29 @@
     </div>
 </div>
 </div>
+<script>
+    function updateStatus(orderId, status) {
+        fetch('/orders/updateStatus', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: orderId, status: status })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Status updated successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to update status: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating status.');
+            });
+    }
+</script>
 
 <?php require_once "views/partials/footer.view.php"; ?>
