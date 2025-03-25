@@ -104,4 +104,20 @@ abstract class Model
         return self::$db->query($sql, [":id" => $id]) ? true : false;
     }
 
+    public static function lowStockProducts()
+    {
+        self::init();
+        $sql = "SELECT * FROM inventory WHERE quantity < 10";
+        $records = self::$db->query($sql)->fetchAll();
+        return $records ?: [];
+    }
+
+    public static function productCount()
+    {
+        self::init();
+        $sql = "SELECT COUNT(*) FROM products ";
+        $count = self::$db->query($sql)->fetchColumn();
+        return $count;
+    }
+
 }

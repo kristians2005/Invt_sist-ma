@@ -2,7 +2,7 @@
 
 require_once "models/Model.php";
 
-class Auth extends Model
+class Dashboard extends Model
 {
     protected static function getTableName(): string
     {
