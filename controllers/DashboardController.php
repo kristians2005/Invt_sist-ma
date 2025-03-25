@@ -11,8 +11,9 @@ class DashboardController
     {
 
         $productCount = Dashboard::productCount();
-        $LowStockProduct = count(Dashboard::lowStockProducts()); 
-        
+        $LowStockProduct = count(Dashboard::lowStockProducts());
+        $orders = Dashboard::orderCount();
+
         require "views/Dashboard.view.php";
     }
 

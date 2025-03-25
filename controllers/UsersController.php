@@ -21,6 +21,7 @@ class UsersController
             header("Location: /");
             exit();
         }
+        // require "views/users/show.view.php";
     }
 
     public function create()

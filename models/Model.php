@@ -120,4 +120,12 @@ abstract class Model
         return $count;
     }
 
+    public static function orderCount()
+    {
+        self::init();
+        $sql = "SELECT COUNT(*) FROM orders ";
+        $count = self::$db->query($sql)->fetchColumn();
+        return $count;
+    }
+
 }

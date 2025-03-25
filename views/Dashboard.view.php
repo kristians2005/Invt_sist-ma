@@ -104,7 +104,7 @@
                 </div>
                 <h3 class="text-lg font-medium text-gray-300 mb-2">Orders</h3>
                 <div class="flex items-baseline">
-                    <span class="text-3xl font-bold text-emerald-400 stat-value">12</span>
+                    <span class="text-3xl font-bold text-emerald-400 stat-value"><?php echo $orders ?></span>
                     <span class="ml-2 text-sm text-gray-500">this week</span>
                 </div>
             </div>

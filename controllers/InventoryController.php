@@ -99,10 +99,12 @@ class InventoryController
                 "location" => $_POST["location"]
             ];
 
+            //var_dump(Inventory::update($id, $data));
+
             if (Inventory::update($id, $data)) {
                 header("Location: /inventory");
             } else {
-                die("Error updating inventory.");
+                header("Location: /inventory");
             }
         }
     }
