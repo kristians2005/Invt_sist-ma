@@ -27,7 +27,7 @@
         <!-- Users Table Card -->
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
-                <div class="overflow-x-auto">
+                <div class="overflow-x-hidden">
                     <table class="table table-zebra w-full">
                         <thead>
                             <tr>
