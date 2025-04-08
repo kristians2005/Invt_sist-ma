@@ -2,7 +2,7 @@
 
 <div class="min-h-screen bg-base-200 py-20">
     <div class="container mx-auto px-4">
-        <!-- Header Section -->
+
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-3xl font-bold">User Management</h1>
             <div class="flex gap-2">

@@ -92,7 +92,7 @@ class UsersController
 
 
 
-        var_dump($error);
+        //var_dump($error);
 
         if (empty($error)) {
             Auth::register($name, $email, $password);
